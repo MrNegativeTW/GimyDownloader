@@ -69,7 +69,11 @@ def start_download(destination_path):
             ts_file = requests.get(url, timeout = (10, 10))
             file_save_location = "{}/{}{}".format(destination_path, file_count, extension)
             open(file_save_location , 'wb').write(ts_file.content)
-        except:
+        except KeyboardInterrupt:
+            print("KeyboardInterrupt received. Terminating program.")
+            raise SystemExit
+        except Exception as e:
+            print(f"An error occurred: {e}")
             # TODO: Auto retry
             retry_list.append(url)
     
